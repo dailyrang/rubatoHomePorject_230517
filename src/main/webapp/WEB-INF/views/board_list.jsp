@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,19 +71,18 @@
         <div id="total_search">
           <div id="total">▷ 총 ${totalCount }개의 게시물이 있습니다.</div>
           <form action="search_list">
-          <div id="search">
-            <div id="select_img"><img src="/resources/img/select_search.gif"></div>
-            <div id="search_select">
-              <select name="searchOption">
-                <option value="title">제목</option>
-                <option value="content">내용</option>
-                <option value="writer">글쓴이</option>
-              </select>
-            </div>
-            <div id="search_input"><input type="text" name="keyword"></div>
-            <div id="search_btn"><input type="image" src="/resources/img/search_button.gif">
-            </div>          
-          </div>
+	          <div id="search">
+	            <div id="select_img"><img src="/resources/img/select_search.gif"></div>
+	            <div id="search_select">
+	              <select name="searchOption">
+	                <option value="title">제목</option>
+	                <option value="content">내용</option>
+	                <option value="writer">글쓴이</option>
+	              </select>
+	            </div>
+	            <div id="search_input"><input type="text" name="keyword"></div>
+	            <div id="search_btn"><input type="image" src="/resources/img/search_button.gif"></div>
+	          </div>
           </form>
         </div> <!-- total search 끝 -->
         <table>
@@ -94,21 +93,25 @@
             <th>일시</th>
             <th>조회수</th>
           </tr>
+          <!-- 게시판 리스트 반복문 -->
           <c:forEach items="${list }" var="dto">
-          <tr>
-            <td class="col1">${dto.bnum }</td>
-            <td class="col2">
-              <a href="board_view?bnum=${dto.bnum }">${dto.btitle }</a>&nbsp;&nbsp;&nbsp;
-              <c:if test="${dto.breplycount != 0}">
-              <span style="color:#999999;font-size: 9px;">[${dto.breplycount }]</span>
-              </c:if>
-              
-            </td>
-            <td class="col3">${dto.bname }</td>
-            <td class="col4"><c:out value="${fn:substring(dto.bdate,0,10) }"></c:out></td>
-            <td class="col5">${dto.bhit }</td>
-          </tr>
-          </c:forEach>
+	          <tr>
+	            <td class="col1">${dto.bnum }</td>
+	            <td class="col2">
+	              <a href="board_view?bnum=${dto.bnum }">${dto.btitle }</a>&nbsp;&nbsp;
+	              <c:if test="${dto.breplycount != 0 }">
+	              	<span style="color: #999999; font-size: 9px">[${dto.breplycount }]</span>
+	              </c:if>
+	              <c:if test="${dto.bfilecount != 0 }">
+	              	<img width="20" src="/resources/img/file.png">
+	              </c:if>
+	            </td>
+	            <td class="col3">${dto.bname }</td>
+	            <td class="col4"><c:out value="${fn:substring(dto.bdate, 0, 10)}"></c:out></td>
+	            <td class="col5">${dto.bhit }</td>
+	          </tr>
+	      </c:forEach>
+          
         </table> <!-- 게시판 목록 테이블 끝 -->
         <div id="buttons">
           <div class="col1">◀ 이전 1 다음 ▶</div>

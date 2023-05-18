@@ -67,7 +67,7 @@
         <img src="/resources/img/comm.gif">
         <h2 id="board_title">자유게시판</h2>
         <div id="write_title"><h2>글쓰기</h2></div>
-        <form action="board_writeOk" method="post">
+        <form action="board_writeOk" method="post" enctype="multipart/form-data">
         <table>
           <tr id="name">
             <td class="col1">이름</td>
@@ -83,10 +83,11 @@
           </tr>
           <tr id="upload">
             <td class="col1">업로드 파일</td>
-            <td class="col2"><input type="file"></td>
+            <td class="col2"><input type="file" name="files"></td>
           </tr>
         </table>
         <div id="buttons">
+        	<!-- form 안에 있으면 자동으로 submit 버튼이랑 같은 역할을 함 --> 
           <input type="image" src="/resources/img/ok.png">
           <a href="board_list"><img src="/resources/img/list.png"></a>
         </div>

@@ -6,7 +6,6 @@
 	
 <mapper namespace="com.rubato.home.dao.IDao">
 	
-	
 	<!-- 게시판 관련 SQL -->
 	<insert id="boardWriteDao">
 		INSERT INTO 
@@ -44,6 +43,10 @@
 		SELECT * FROM rubafreeboard WHERE bname LIKE '%' || #{param1} || '%' ORDER BY bnum DESC
 	</select>
 	
+	<delete id="boardDeleteDao">
+		DELETE FROM rubafreeboard WHERE bnum=#{param1}
+	</delete>
+	
 	<!-- 댓글 관련 SQL -->
 	<insert id="replyWriteDao">
 		INSERT INTO 
@@ -59,5 +62,22 @@
 		SELECT * FROM rubareply WHERE rorinum=#{param1} ORDER BY rnum ASC
 	</select>
 	
+	<delete id="replyDeleteDao">
+		DELETE FROM rubareply WHERE rnum=#{param1}
+	</delete>
+	
+	<update id="replyCountMinusDao">
+		UPDATE rubafreeboard SET breplycount=breplycount-1 WHERE bnum=#{param1}
+	</update>
 
+	<!-- file 업로드 관련 SQL-->
+	<insert id="fileInfoCreateDao">
+		INSERT INTO
+			rubafiles(filenum, forinum, fileoriname, filename, fileextension, fileurl)
+				VALUES (rffile_seq.nextval, #{param1}, #{param2}, #{param3}, #{param4}, #{param5})
+	</insert>
+	
+	<select id="getFileInfoDao" resultType="com.rubato.home.dto.FileDto">
+		SELECT * FROM rubafiles WHERE forinum=#{param1} 
+	</select>
 </mapper>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,29 +74,43 @@
         <p id="view_content">
           ${boardDto.bcontent }
         </p>
+        
+        <p id="file_info">
+        	※ 첨부파일 : 
+        	<a href="/resources/uploadfiles/${fileDto.filename }" download>${fileDto.fileoriname }</a>
+        </p>
+        <br>
+        <!-- 이미지가 첨부되면 미리보기 기능 -->
+        <c:if test="${fileDto.fileextension == 'jpg' or fileDto.fileextension == 'png'
+        		or fileDto.fileextension == 'bmp' or fileDto.fileextension == 'gif' }">
+        	<br>
+        		<img width="300" src="/resources/uploadfiles/${fileDto.filename }">
+        	<br>
+        </c:if>
+        
+        
         <table border="1" cellpadding="0" cellspacing="0" width="750">
         	<c:forEach items="${replyList }" var="replyDto">
-        	<tr>
-        		<td align="center">${replyDto.rid }</td>
-        		<td width="70%">${replyDto.rcontent }<br><br>${replyDto.rdate }</td>
-        		<td align="center">
-        			<input type="button" value="삭제" onclick="spript:window.location.href='replyDelete?rnum=${replyDto.rnum}'">
-        		</td>
-        	</tr>
-        	</c:forEach>
+	        	<tr>
+	        		<td align="center">${replyDto.rid }</td>
+	        		<td width="70%">${replyDto.rcontent }<br><br>${replyDto.rdate }</td>
+	        		<td align="center">
+						<input type="button" value="삭제" onclick="script:window.location.href='replyDelete?rnum=${replyDto.rnum }&rorinum=${boardDto.bnum }'">
+					</td> 
+	        	</tr>
+	        </c:forEach>
         </table>
-        
         
         <form action="reply_write">
         <input type="hidden" name="rorinum" value="${boardDto.bnum }">
-        <div id="comment_box">
-          <img id="title_comment" src="/resources/img/title_comment.gif">
-          <textarea name="rcontent"></textarea>
-          <input type="image" src="/resources/img/ok_ripple.gif" id="ok_ripple">          
-        </div>
-        </form>
+	        <div id="comment_box">
+	          <img id="title_comment" src="/resources/img/title_comment.gif">
+	          <textarea name="rcontent"></textarea>
+	          <input type="image" id="ok_ripple" src="/resources/img/ok_ripple.gif">
+	        </div>
+	    </form>
         <div id="buttons">
-          <a href="#"><img src="/resources/img/delete.png"></a>
+          <a href="board_delete?bnum=${boardDto.bnum }"><input type="image" src="/resources/img/delete.png"></a>
           <a href="board_list"><img src="/resources/img/list.png"></a>
           <a href="board_write"><img src="/resources/img/write.png"></a>
         </div>
